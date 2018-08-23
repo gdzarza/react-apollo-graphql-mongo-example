@@ -13,7 +13,7 @@ class BookList extends Component {
         var data = this.props.data;
         if(data.loading){
             return(<div>Loading books...</div>);
-        } else {
+        } else if (data.books) {
             return data.books.map(book => {
                 return (<li key={book.id} onClick={(e) => {this.setState({selected: book.id})}}>{book.name}</li>);
             });
@@ -23,7 +23,7 @@ class BookList extends Component {
         return (
             <div>
                 <ul id="book-list">
-                    {this.displayBooks()}
+                    {this.props.data && this.displayBooks()}
                 </ul>
                 <BookDetails bookId={this.state.selected}/>
             </div>

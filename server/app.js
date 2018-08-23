@@ -1,11 +1,11 @@
 const express = require('express');
-const graphqlHTPP = require('express-graphql');
+const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const authenticateMiddleware = require('./middlewares/authenticate');
 
 const app = express();
-
 
 // allow cross-origin requests
 app.use(cors());
@@ -16,7 +16,7 @@ mongoose.connection.once('open', () => {
     console.log('connected to database');
 });
 
-app.use('/graphql', graphqlHTPP({
+app.use('/graphql', authenticateMiddleware(), graphqlHTTP({
     schema,
     graphiql: true
 }));

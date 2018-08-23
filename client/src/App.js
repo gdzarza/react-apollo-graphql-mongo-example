@@ -1,26 +1,35 @@
 import React, {Component} from 'react';
-import ApolloClient from 'apollo-boost';
-import {ApolloProvider} from 'react-apollo';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link
+} from 'react-router-dom';
+
+import configs from './configs';
+import Amplify from 'aws-amplify';
+import {Authenticator, Greetings} from 'aws-amplify-react';
 
 // components
-import BookList from './components/BookList';
-import AddBook from './components/AddBook';
+import Main from './Main';
 
-// apollo client setup
-const client = new ApolloClient({
-    uri: 'http://localhost:4000/graphql'
-});
+
+Amplify.configure(configs);
+
+
+const federated = {
+    facebook_app_id: '2233235413558685'
+    /** GZ: Descomentando estas lineas, el template agrega botones correspondientes **/
+    //google_client_id: 'yourGoogleClientID',
+    //amazon_client_id: 'yourAmazonClientID'
+};
 
 class App extends Component {
     render() {
         return (
-            <ApolloProvider client={client}>
-                <div id="main">
-                    <h1>Ninja's Reading List</h1>
-                    <BookList/>
-                    <AddBook/>
-                </div>
-            </ApolloProvider>
+            <Authenticator hide={[Greetings]} federated={federated}>
+                <Main />
+            </Authenticator>
+
         );
     }
 }
