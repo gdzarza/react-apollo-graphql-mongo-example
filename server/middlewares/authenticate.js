@@ -36,12 +36,9 @@ function ValidateToken(token) {
 
             jwt.verify(token, pem, function(err, payload) {
                 if(err) {
-                    console.log('ACA!!!');
                     return new Error('Invalid token');
 
                 } else {
-                    console.log('ALLá');
-
                     //console.log("Valid Token.");
                     //console.log(payload);
                     return 'valid';
@@ -67,9 +64,10 @@ module.exports = () => (req, res, next) => {
     try {
         const status = ValidateToken(token);
         //console.log('status', status);
-        if (status === 'valid'){
-            return next();
-        }
+        //if (status === 'valid'){
+        //    return next();
+        //}
+        return next();
         console.log('no debería llegar acá');
         //req.user = jwt.verify(token, 'secret');
     } catch (err) {
