@@ -7,8 +7,6 @@ import AddBook from './components/AddBook';
 import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 
-
-
 export default class Main extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +35,6 @@ export default class Main extends Component {
             this.setState({client});
         }
     }
-
 
     signOut = async (e) => {
         e.preventDefault();
